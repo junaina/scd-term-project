@@ -5,4 +5,5 @@ app/server/.env
 *.log
 dist/
 build/
+.env.local
 .DS_Store
