@@ -1,4 +1,4 @@
-# MERN Notes App
+# MERN Notes app
 
 A simple MERN (MongoDB, Express.js, React, Node.js) notes app for managing your notes.
 
@@ -21,35 +21,39 @@ Before you begin, ensure you have met the following requirements:
    ```bash
    git clone https://github.com/atanu3000/MERN_Notes_App.git
    ```
+
 2. Navigate to the repository
 
-    ```bash
-    cd MERN_Notes_App
-    ```
+   ```bash
+   cd MERN_Notes_App
+   ```
+
 3. Install server dependencies
-    ```bash
-    cd server
-    npm i
-    ```
+   ```bash
+   cd server
+   npm i
+   ```
 4. Install frontend dependencies
-    ```bash
-    cd ../frontend
-    npm i
-    ```
+   ```bash
+   cd ../frontend
+   npm i
+   ```
+
 ## Usage
 
 1. Setup your MongoDB connection by creating the `.env` file in your `server` directory with your MongoDB URL
-   
-    ```bash
-    cd ../server
-    echo 'dbURL="your_mongodb_uri_here"' > .env
-    ```
-3. Start the server
-    ```bash
+
+   ```bash
+   cd ../server
+   echo 'dbURL="your_mongodb_uri_here"' > .env
+   ```
+
+2. Start the server
+   ```bash
    npm run dev
    ```
-4. Start the frontend (in a separate terminal)
-    ```bash
-    cd frontend
-    npm run dev
-    ```
+3. Start the frontend (in a separate terminal)
+   ```bash
+   cd frontend
+   npm run dev
+   ```
