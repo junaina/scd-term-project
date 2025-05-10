@@ -30,17 +30,17 @@ jobs:
       - name: Build backend image
         shell: powershell
         run: |
-          docker build -t $env:DOCKER_USERNAME/backend-app:latest ./app/server
+          docker build -t junaina/backend-app:latest ./app/server
 
       - name: Build frontend image
         shell: powershell
         run: |
-          docker build -t $env:DOCKER_USERNAME/frontend-app:latest ./app/frontend
+          docker build -t junaina/frontend-app:latest ./app/frontend
 
       - name: Debug Docker username
         shell: powershell
         run: |
-          echo "Docker username is $env:DOCKER_USERNAME"
+          echo "Docker username is junaina"
 
       - name: Login to Docker Hub
         shell: powershell
