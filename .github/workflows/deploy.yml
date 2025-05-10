@@ -19,10 +19,10 @@ jobs:
           Write-Host "⚙ Configuring Docker to use Minikube..."
           & minikube -p minikube docker-env | Invoke-Expression
 
-      - name: Load .env.local manually (self-hosted only)
+      - name: Load .env file manually (self-hosted only)
         shell: powershell
         run: |
-          $envPath = "D:/UNI/sixth/SCD/Term Project/MERN_Notes_App/.env.local"
+          $envPath = "$env:GITHUB_WORKSPACE/.env.local"
           if (Test-Path $envPath) {
             Write-Host "📄 Loading environment variables from .env.local..."
             Get-Content $envPath | ForEach-Object {
