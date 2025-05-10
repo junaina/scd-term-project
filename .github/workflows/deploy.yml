@@ -18,6 +18,10 @@ jobs:
         run: |
           Write-Host "Configuring Docker to use Minikube..."
           & minikube -p minikube docker-env | Invoke-Expression
+      - name: Copy .env.local into working directory
+        shell: powershell
+        run: |
+          Copy-Item "$env:GITHUB_WORKSPACE/../.env.local" "$env:GITHUB_WORKSPACE/.env.local" -Force
 
       - name: Load .env file manually (self-hosted only)
         shell: powershell
