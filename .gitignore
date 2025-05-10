@@ -10,4 +10,3 @@ build/
 # Ignore local self-hosted runner
 /actions-runner/
 /.env.local
-
