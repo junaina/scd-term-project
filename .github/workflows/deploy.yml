@@ -24,7 +24,7 @@ jobs:
         run: |
           $envPath = "$env:GITHUB_WORKSPACE/.env.local"
           if (Test-Path $envPath) {
-            Write-Host "📄 Loading environment variables from .env.local..."
+            Write-Host "`n✅ Loading environment variables from .env.local..."
             Get-Content $envPath | ForEach-Object {
               $pair = $_.Split('=')
               if ($pair.Length -eq 2) {
