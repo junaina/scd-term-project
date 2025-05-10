@@ -45,7 +45,7 @@ jobs:
       - name: Login to Docker Hub
         shell: powershell
         run: |
-          docker login -u junaina --password-stdin
+          docker login -u junaina --password Humanbeing11!
 
       - name: Push backend image
         shell: powershell
