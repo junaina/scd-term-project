@@ -7,3 +7,7 @@ dist/
 build/
 .env.local
 .DS_Store
+# Ignore local self-hosted runner
+/actions-runner/
+/.env.local
+
