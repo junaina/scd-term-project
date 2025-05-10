@@ -16,46 +16,61 @@ jobs:
       - name: Docker using Minikube's env
         shell: powershell
         run: |
-          Write-Host "Configuring Docker to use Minikube..."
+          Write-Host "⚙ Configuring Docker to use Minikube..."
           & minikube -p minikube docker-env | Invoke-Expression
 
-      - name: Load .env file manually (self-hosted only)
+      - name: Load .env.local manually (self-hosted only)
         shell: powershell
         run: |
-          Get-Content "D:/UNI/sixth/SCD/Term Project/MERN_Notes_App/.env.local" | ForEach-Object {
-            $pair = $_.Split('=')
-            [System.Environment]::SetEnvironmentVariable($pair[0], $pair[1])
+          $envPath = "D:/UNI/sixth/SCD/Term Project/MERN_Notes_App/.env.local"
+          if (Test-Path $envPath) {
+            Write-Host "📄 Loading environment variables from .env.local..."
+            Get-Content $envPath | ForEach-Object {
+              $pair = $_.Split('=')
+              if ($pair.Length -eq 2) {
+                [System.Environment]::SetEnvironmentVariable($pair[0], $pair[1], 'Process')
+              }
+            }
+          } else {
+            Write-Error "❌ .env.local not found at $envPath"
+            exit 1
+          }
+
+      - name: ✅ Debug loaded environment variables
+        shell: powershell
+        run: |
+          if ($env:DOCKER_USERNAME -and $env:DOCKER_PASSWORD) {
+            echo "✅ DOCKER_USERNAME = $env:DOCKER_USERNAME"
+            echo "✅ DOCKER_PASSWORD is set (length = $($env:DOCKER_PASSWORD.Length))"
+          } else {
+            echo "❌ One or more environment variables are missing"
+            exit 1
           }
 
       - name: Build backend image
         shell: powershell
         run: |
-          docker build -t junaina/backend-app:latest ./app/server
+          docker build -t "$env:DOCKER_USERNAME/backend-app:latest" ./app/server
 
       - name: Build frontend image
         shell: powershell
         run: |
-          docker build -t junaina/frontend-app:latest ./app/frontend
+          docker build -t "$env:DOCKER_USERNAME/frontend-app:latest" ./app/frontend
 
-      - name: Debug Docker username
+      - name: Login to Docker Hub (non-stdin workaround)
         shell: powershell
         run: |
-          echo "Docker username is junaina"
-
-      - name: Login to Docker Hub
-        shell: powershell
-        run: |
-          docker login -u junaina --password Humanbeing11!
+          docker login -u "$env:DOCKER_USERNAME" -p "$env:DOCKER_PASSWORD"
 
       - name: Push backend image
         shell: powershell
         run: |
-          docker push $env:junaina/backend-app:latest
+          docker push "$env:DOCKER_USERNAME/backend-app:latest"
 
       - name: Push frontend image
         shell: powershell
         run: |
-          docker push $env:junaina/frontend-app:latest
+          docker push "$env:DOCKER_USERNAME/frontend-app:latest"
 
       - name: Deploy to Minikube
         shell: powershell
