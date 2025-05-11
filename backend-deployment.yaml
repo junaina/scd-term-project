@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: backend
+        namespace: mern-notes
     spec:
       containers:
         - name: backend
